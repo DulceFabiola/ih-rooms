@@ -39,6 +39,14 @@ connectDB();
 
 //conectamos la session
 sessionManager(app);
+
+//Layout Middleware
+//enviamos la cookie a las vistas
+//importante para saber si un usuario esta logeado y checar en las vistas
+app.use((req, res, next) => {
+  res.locals.currentUser = req.session.currentUser;
+  next();
+});
 //3.RUTAS
 //HOME
 //ya no hace falta que entre a index, porque automaticamente toma el archivo con nombre index
@@ -49,6 +57,9 @@ app.use("/", require("./routes"));
 app.use("/auth", require("./routes/auth.router"));
 //USER
 app.use("/user", require("./routes/user.router"));
+
+//ROOMS
+app.use("/rooms", require("./routes/rooms.router"));
 
 //4.EXPORTAR
 module.exports = app;

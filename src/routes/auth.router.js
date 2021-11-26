@@ -9,18 +9,27 @@ const router = require("express").Router();
 //sacar las propiedades dentro del objeto y meterlas en variables
 const {
   getSignup,
-  getLogin,
   postSignup,
+  getLogin,
   postLogin,
+  postLogout,
 } = require("./../controllers/auth.controller");
+
+//middlewares de rutas
+const { isLoggedIn, isLoggedOut } = require("./../middlewares");
 //RUTAS
 //SIGNUP
-router.get("/signup", getSignup);
-router.post("/signup", postSignup);
+router.get("/signup", isLoggedOut, getSignup);
+router.post("/signup", isLoggedOut, postSignup);
 
 //LOGIN
-router.get("/login", getLogin);
-router.get("/login", postLogin);
+//renderizar el form
+router.get("/login", isLoggedOut, getLogin);
+//mandar datos
+router.post("/login", isLoggedOut, postLogin);
+
+//LOGOUT
+router.post("/logout", isLoggedIn, postLogout);
 
 //EXPORTACION
 module.exports = router;
