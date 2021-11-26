@@ -11,6 +11,7 @@ const {
   getSignup,
   getLogin,
   postSignup,
+  postLogin,
 } = require("./../controllers/auth.controller");
 //RUTAS
 //SIGNUP
@@ -19,6 +20,7 @@ router.post("/signup", postSignup);
 
 //LOGIN
 router.get("/login", getLogin);
+router.get("/login", postLogin);
 
 //EXPORTACION
 module.exports = router;

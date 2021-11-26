@@ -7,6 +7,9 @@ const express = require("express");
 const app = express();
 //se llama index, no hace falta llamarlo en la ruta
 const connectDB = require("./db");
+
+//importamos la session
+const sessionManager = require("./config/session");
 //importacionde variables de entorno
 //invocamos el metodo config, basta con declararlo una sola vez, porque todos los aechivos se juntan en uno solo
 //otra forma de hacer la conexion es: require('dotenv').config();
@@ -33,6 +36,9 @@ app.set("view engine", "hbs");
 //obtener datos que se mandan en los formularios
 app.use(express.urlencoded({ extended: true }));
 connectDB();
+
+//conectamos la session
+sessionManager(app);
 //3.RUTAS
 //HOME
 //ya no hace falta que entre a index, porque automaticamente toma el archivo con nombre index
@@ -41,6 +47,8 @@ app.use("/", require("./routes"));
 
 //LOGIN
 app.use("/auth", require("./routes/auth.router"));
+//USER
+app.use("/user", require("./routes/user.router"));
 
 //4.EXPORTAR
 module.exports = app;
