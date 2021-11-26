@@ -7,10 +7,15 @@ const router = require("express").Router();
 ///----o puedes usar:
 //usar destructuracion de objetos
 //sacar las propiedades dentro del objeto y meterlas en variables
-const { getSignup, getLogin } = require("./../controllers/auth.controller");
+const {
+  getSignup,
+  getLogin,
+  postSignup,
+} = require("./../controllers/auth.controller");
 //RUTAS
 //SIGNUP
 router.get("/signup", getSignup);
+router.post("/signup", postSignup);
 
 //LOGIN
 router.get("/login", getLogin);
