@@ -3,6 +3,7 @@ const Room = require("./../models/Room");
 exports.getRooms = async (req, res) => {
   try {
     const rooms = await Room.find({});
+    //data
     res.render("rooms/index", {
       rooms,
     });
