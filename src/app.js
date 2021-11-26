@@ -5,13 +5,12 @@
 //Babel--> transpilador de codigo: puede ejecutar ES6
 const express = require("express");
 const app = express();
-
+//se llama index, no hace falta llamarlo en la ruta
+const connectDB = require("./db");
 //importacionde variables de entorno
 //invocamos el metodo config, basta con declararlo una sola vez, porque todos los aechivos se juntan en uno solo
 //otra forma de hacer la conexion es: require('dotenv').config();
 require("dotenv/config");
-console.log(require("dotenv/config"));
-
 //modulo path: evitar la concatenacion del __dirname
 const path = require("path");
 
@@ -33,12 +32,15 @@ app.set("view engine", "hbs");
 //Meter el middleware urlencoded
 //obtener datos que se mandan en los formularios
 app.use(express.urlencoded({ extended: true }));
-
+connectDB();
 //3.RUTAS
 //HOME
 //ya no hace falta que entre a index, porque automaticamente toma el archivo con nombre index
 //si tiene otro nombre, entonces si hay q agregarlo ./routes/namedelarchivo
 app.use("/", require("./routes"));
+
+//LOGIN
+app.use("/auth", require("./routes/auth.router"));
 
 //4.EXPORTAR
 module.exports = app;
